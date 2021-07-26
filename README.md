@@ -25,19 +25,19 @@ For successful simulation with this tool, it must be supplied with a number of p
 
 ## Nomenclature
 ### Custom Terms
-'Channel'	-	A distinct power supply rail on the power distribution system. Many electrical power supply systems for satellites have several of such distinct rails, or "channels", to electrically isolate different devices on-board the satellite.
-'Device'	-	Another name for a power-using subsystem on-board the satellite. A power user. For example: a cluster of sensors, a radio device, a payload system, etc.
-'OpState' 	-	Short for Operational State. A discreet state of the satellite in which its power usage is constant. In the ideal case, the satellite's behaviour must be broken down into the smallest number of distinct OpStates. For example: a _Power Charging state_, an _Attitude Correction state_, etc.
-'Schedule'	-	A schedule of satellite activity stating in which OpState the satellite should find itself at which point in time. For example: _At time t0, be in OpState A; at time t1, be in OpState B, etc..._
+ - **Channel**	-   A distinct power supply rail on the power distribution system. Many electrical power supply systems for satellites have several of such distinct rails, or "channels", to electrically isolate different devices on-board the satellite.
+ - **Device**	-   Another name for a power-using subsystem on-board the satellite. A power user. For example: a cluster of sensors, a radio device, a payload system, etc.
+ - **OpState** 	-   Short for Operational State. A discreet state of the satellite in which its power usage is constant. In the ideal case, the satellite's behaviour must be broken down into the smallest number of distinct OpStates. For example: a _Power Charging state_, an _Attitude Correction state_, etc.
+ - **Schedule**	-   A schedule of satellite activity stating in which OpState the satellite should find itself at which point in time. For example: _At time t0, be in OpState A; at time t1, be in OpState B, etc..._
 
 ### Common Satellite-related Acronyms
-'ADCS'	-	Attitude Determination & Control System
-'EPS'	-	Electrical Power System
-'CDH'	-	Command & Data Handling
-'LTAN'	-	Local Time of Ascending Node
-'OBC'	-	On-Board Computer
-'RX'	-	Radio receiver
-'TX'	-	Radio transmitter
+ - **ADCS** -   Attitude Determination & Control System
+ - **EPS**  -   Electrical Power System
+ - **CDH**  -   Command & Data Handling
+ - **LTAN** -   Local Time of Ascending Node
+ - **OBC**  -   On-Board Computer
+ - **RX**   -   Radio receiver
+ - **TX**   -   Radio transmitter
 
 
 ## Software Layout
