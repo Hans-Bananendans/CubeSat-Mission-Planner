@@ -1,3 +1,11 @@
+"""
+opstate.py
+
+"Specification of the OpState class."
+
+@author: Johan Monster (https://github.com/Hans-Bananendans/)
+"""
+
 class OpState:
     """This class represents a separate operational state, and can be used
     to calculate used power values and separate these by channel."""

@@ -1,5 +1,5 @@
 # CubeSat-Mission-Planner
-A Python-based tool to schedule satellite missions and simulate the resulting power behaviour. This tool was developed to help in the mission design of the [Da Vinci CubeSat](https://davincisatellite.nl/). As part of the mission design of this satellite, there existed a need to propagate a schedule of mission segments over time and verify the viability of such a schedule in terms of power behaviour. This tool facilitates such verification, although its accuracy is strongly dependent on the quality of the input data.
+A Python-based tool to schedule satellite missions and simulate the resulting power behaviour. This tool was developed to help with the design of the [Da Vinci CubeSat](https://davincisatellite.nl/). As part of the mission design of this satellite, there existed a need to propagate a schedule of mission segments over time and verify the viability of such a schedule in terms of power behaviour. This tool facilitates such verification, although its accuracy is strongly dependent on the quality of the input data.
 
 ## Index
  - [Getting Started](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#getting-started)
@@ -55,12 +55,48 @@ A functional layout of the tool's structure can be found below:
 ![alt text](./docs/layout.png?raw=true)
 
 In a nutshell, the program assembles a custom `Mission` class, and uses it to propagate a schedule of OpStates over time in discreet time steps, evaluating the internal power at every step. Then, it can plot this output in a variety of ways. For the `Mission` class to do this, it needs a variety of inputs, which will be outlined here.
- - Orbital Parameters - This constitutes a custom `Orbit` class included in the repository. Because the Da Vinci satellite, for which this tool was developed, flies a SSO LEO orbit, the amount of sun each orbit gets is relatively similar and stable over time. As such, the `Orbit` class is very simple, and currently only supplies orbital period, eclipse length, and eclipse fraction, the latter two only valid for SSO with LTAN of 10:30. If you would like to simulate orbits different to SSO LEO orbits, I recommend writing your own custom `Orbit` class and feed this into `Mission`.
+ - Orbital Parameters (_Orbit_) - This constitutes a custom `Orbit` class included in the repository. Because the Da Vinci satellite, for which this tool was developed, flies a SSO LEO orbit, the amount of sun each orbit gets is relatively similar and stable over time. As such, the `Orbit` class is very simple, and currently only supplies orbital period, eclipse length, and eclipse fraction, the latter two only valid for SSO with LTAN of 10:30. If you would like to simulate orbits different to SSO LEO orbits, I recommend writing your own custom `Orbit` class and feed this into `Mission`.
  - P_in - This is a set of two vectors, consisting of the amount of incoming power in **mW** from direct sunlight (`P_sun.npy`) and albedo light (`P_alb.npy`).
  - Eclipse info - This could be a vector describing when the satellite is in eclipse during its orbit. However, currently the `Mission` class detects eclipses from where `P_sun.npy` is zero.
- - Device/OpState lookup table - This is a very important table that allows the tool to understand how much power in **mW** is used by each device in each OpState. **The tool is only as good as the values provided in this table!** Typically, these values are difficult to estimate accurately, and must be obtained from manufacturers, analytical estimations, or hardware tests. The 
+ - Device/OpState lookup table (`power_frame`) - This is a very important table that allows the tool to understand how much power in **mW** is used by each device in each OpState. ***The tool is only as good as the values provided in this table!*** Typically, these values are difficult to estimate accurately, and must be obtained from manufacturers, analytical estimations, or hardware tests. In practice, this is an .xlsx file that has to be read manually (see e.g. `example1.py`) into a Pandas dataframe. Since it is read manually, the .xlsx file can be replaced by as you see fit, be it JSON, CSV or exported Pandas dataframe. The reliance on .xlsx was merely done for better integration with the other design pipelines of the original Da Vince CubeSat project.
+ - Configuration (`config`) - This is a Python dictionary object specifying various input parameters for _Mission_ that would not go anywhere else. Examples of values that are included in this dictionary are orbital altitude, initial battery charge, power system degradation factors, etc. See `example3.py` or the source code of the _Mission_ class for more information.
+ - Voltage dict - This is a simple Python dictionary stating how much power is on each EPS channel.
+ - Channel dict (`device_channels`) - This is a simple Python dictionary which for each device in the satellite states to what EPS channel it is connected.
+ - Channel list (`channels`) - This is a list of EPS channels that exist. This list must be consistent with the other dictionaries
+ - OpState list - This is a list of all OpStates that exist. This list must be consistent with the other dictionaries, as well as the device/OpState lookup table.
+ - OpState schedule - This also takes the form of a simple Python dict, where the keys are the time, and the values are the OpState to be started from that time on. The keys are specified in seconds (see `example1.py`), but in many cases it can be more convenient to define these as orbit fractions (see`example3.py`).
 
+After all the inputs have been supplied, the schedule can be propagated by calling the `propagate()` function, which is a class method of _Mission_. This returns a large Pandas dataframe with the simulation output data. Consecutively, several plots can be generated, each of which has its own method in _Mission_.
+ 
 ## Usage
+In this repository, there are a number of annotated examples available to get you started with the CubeSat-Mission-Planner tool. A brief overview will be given here also.
+
+#### Constructing an instance of _Mission_
+The default constructor of _Mission_ takes seven arguments:
+```
+mission1 = Mission(config, device_channels, state_list, channels, power_frame, p_sun, p_alb)
+```
+
+#### Useful methods of _Mission_
+To propagate a schedule, use `propagate()`:
+```
+simulation_results = mission1.propagate(schedule, tsim=10, dt=1)
+```
+One has to ensure manually that `tsim`, the total simulation length, covers the full extent of the given `schedule`. It defaults to 10 seconds. A warning will be printed to the python console if the schedule exceeds the simulation length. If timestep `dt` is not specified, it defaults to 1 second. It is recommended to choose nice round numbers for `dt`. Values smaller than 1 may yield bad results.
+
+Each time `propagate()` is called, the previous simulation data is cleared automatically. To clear previous simulation results manually, one can use
+```
+mission1.reset_sim_data()
+```
+
+#### Plotting _Mission_ ouputs
+The following plots can be generated using `example2.py`.
+
+##### Power timeline plot
+```
+mission1.plot_timeline_power()
+```
+![alt text](./docs/pic1.png?raw=true)
 
 
 ## Licence

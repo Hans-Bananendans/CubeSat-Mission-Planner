@@ -1,3 +1,13 @@
+"""
+orbit.py
+
+"Frankly, a very limited and highly specific implementation of an Orbit class.
+    If used for applications other than the original usecase, this class will
+    either need to be bypassed or heavily expanded upon."
+
+@author: Johan Monster (https://github.com/Hans-Bananendans/)
+"""
+
 from numpy import log
 
 class Orbit:

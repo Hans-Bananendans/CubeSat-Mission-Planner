@@ -1,5 +1,10 @@
-""" Main loop for mission planning tool prototype """
+"""
+mission.py
 
+"Specification of the Mission class."
+
+@author: Johan Monster (https://github.com/Hans-Bananendans/)
+"""
 
 #%%###### PACKAGE LOGISTICS #########
 import numpy as np
@@ -53,6 +58,7 @@ class Mission:
         self.sim_data = pd.DataFrame(columns = self.datacols)
     
     def check_coherence(self, power_frame):
+        # TODO
         # Check that power_frame does not contain states not in state_list
         # Check that power_frame does not contain devices not in devices
         # Check that device and device_channels have same number of devices
@@ -74,6 +80,8 @@ class Mission:
         return opstates
         
     def propagate(self, schedule_unsorted, tsim=10, dt=1):
+        self.reset_sim_data()
+        
         self.dt = dt
         self.tsim = tsim
         
