@@ -7,6 +7,7 @@ A Python-based tool to schedule satellite missions and simulate the resulting po
  - [Nomenclature](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#nomenclature)
  - [Software Layout](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#software-layout)
  - [Usage](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#usage)
+ - [Authors](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#authors)
  - [Licence](https://github.com/Hans-Bananendans/CubeSat-Mission-Planner#licence)
 
 ## Getting Started
@@ -140,4 +141,43 @@ mission1.plot_pie_device()
 ```
 ![alt text](./docs/pic7.png?raw=true)
 
+
+### Constructing an instance of _OpState_
+For the purposes of propagating a _Mission_ object, it should not be necessary to manually interact with the _OpState_ class. The _Mission_ class automatically generates them. The default constructor of _OpState_ takes four arguments:
+```
+opstate1 = OpState(device_power_values, channels, device_channels, blips_on=1)
+```
+The variable `blips_on` is currently unused.
+
+### Methods of _OpState_
+Return the amount of power used on each channel during one second:
+```
+power_used_opstate = opstate1.power_used_channel()
+```
+
+Return the amount of power used by each deviceduring one second:
+```
+power_used_opstate = opstate1.power_used_device()
+```
+
+Return the total power during one second:
+```
+power_used_opstate = opstate1.power_used()
+```
+
+### Constructing an instance of _Orbit_
+For the purposes of propagating a _Mission_ object, it should not be necessary to manually interact with the _OpState_ class. The _Mission_ class automatically generates them. The default constructor of _OpState_ takes four arguments:
+```
+orbit1 = Orbit(h,i,LTAN)
+```
+Where:
+ - `h` is in kilometers
+ - `i` is in degrees
+ - `LTAN` is the hour of the day expressed as a decimal value. For example: LTAN = 5 is an LTAN of 5:00; LTAN=13.5 is an LTAN of 13:30.
+
+
+## Authors
+ - Johan Monster - https://github.com/Hans-Bananendans/
+
 ## Licence
+This project is licensed under the MIT License; see the [LICENSE.md](LICENSE.md) file for details.
