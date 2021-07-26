@@ -71,13 +71,13 @@ After all the inputs have been supplied, the schedule can be propagated by calli
 ## Usage
 In this repository, there are a number of annotated examples available to get you started with the CubeSat-Mission-Planner tool. A brief overview will be given here also.
 
-#### Constructing an instance of _Mission_
+### Constructing an instance of _Mission_
 The default constructor of _Mission_ takes seven arguments:
 ```
 mission1 = Mission(config, device_channels, state_list, channels, power_frame, p_sun, p_alb)
 ```
 
-#### Useful methods of _Mission_
+### Useful methods of _Mission_
 To propagate a schedule, use `propagate()`:
 ```
 simulation_results = mission1.propagate(schedule, tsim=10, dt=1)
@@ -89,14 +89,55 @@ Each time `propagate()` is called, the previous simulation data is cleared autom
 mission1.reset_sim_data()
 ```
 
-#### Plotting _Mission_ ouputs
+### Plotting _Mission_ ouputs
 The following plots can be generated using `example2.py`.
 
-##### Power timeline plot
+#### Power timeline plot
 ```
 mission1.plot_timeline_power()
 ```
 ![alt text](./docs/pic1.png?raw=true)
 
+
+#### Fractional duration per OpState during mission, pie plot
+```
+mission1.plot_pie_opstate()
+```
+![alt text](./docs/pic2.png?raw=true)
+
+
+#### Average power consumption per channel, bar plot
+```
+mission1.plot_bar_channel()
+```
+![alt text](./docs/pic3.png?raw=true)
+
+
+#### Current per channel timeline
+```
+mission1.plot_timeline_channel_currents()
+```
+![alt text](./docs/pic4.png?raw=true)
+
+
+#### Power consumption per channel timeline
+```
+mission1.plot_timeline_channel()
+```
+![alt text](./docs/pic5.png?raw=true)
+
+
+#### Power consumption per device timeline
+```
+mission1.plot_timeline_device()
+```
+![alt text](./docs/pic6.png?raw=true)
+
+
+#### Average power consumption per device during mission, pie plot
+```
+mission1.plot_pie_device()
+```
+![alt text](./docs/pic7.png?raw=true)
 
 ## Licence
