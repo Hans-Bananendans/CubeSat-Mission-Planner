@@ -91,7 +91,7 @@ mission1.reset_sim_data()
 ```
 
 ### Plotting _Mission_ ouputs
-The following plots can be generated using `example2.py`.
+The following plots can be generated using [example2.py](./example2.py).
 
 #### Power timeline plot
 ```
