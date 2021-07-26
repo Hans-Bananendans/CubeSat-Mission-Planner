@@ -201,6 +201,7 @@ class Mission:
         
         runtime = round(time.time()-begin,3)
         print("\x1b[1;30;43m", "Runtime:", runtime, "[s]", "\x1b[0m")
+        return self.sim_data
         
     
     def plot_pie_device(self):
